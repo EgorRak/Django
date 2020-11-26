@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Numbers Page</title>
+</head>
+<body>
+    <table border="1" bgcolor="red" >
+        <tr bgcolor="green" >
+            <td>Number</td>
+            <td>Square</td>
+        </tr>
+        <tr>
+            <td>Kuku</td>
+            <td>Keke</td>
+        </tr>
+        {%for obj in values_list %}
+        <tr>
+            <td bgcolor="yellow">{{obj.value}}</td>
+            <td bgcolor="blue">{{obj.square}}</td>
+
+        </tr>
+        {%endfor%}
+    </table>
+</body>
+</html>

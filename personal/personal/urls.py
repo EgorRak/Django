@@ -18,8 +18,15 @@ from django.urls import path
 
 from personal.views import hello
 from personal.views import info
+from personal.views import get_numbers
+from personal.views import ivan
+from personal.views import home_page
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', hello),
-    path('info-page/', info)
+    path('info-page/', info),
+    path('numbers/',get_numbers),
+    path('ivan/',ivan),
+    path('home_page/',home_page)
 ]
