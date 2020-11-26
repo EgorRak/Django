@@ -4,7 +4,7 @@ from django.shortcuts import render
 def hello(request):
     return HttpResponse("OK")
 def info(request):
-    now = datetime.now()
+    now = datetime.strftime(datetime.now(), '%d/%m/%Y/%H:%M:%S')
     return HttpResponse(now)
 
 def get_numbers(request):
