@@ -19,14 +19,16 @@ from django.urls import path
 from personal.views import hello
 from personal.views import info
 from personal.views import get_numbers
-from personal.views import ivan
+from personal.views import test_template
 from personal.views import home_page
+from personal.views import HomePageView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', hello),
     path('info-page/', info),
     path('numbers/',get_numbers),
-    path('ivan/',ivan),
-    path('home_page/',home_page)
+    path('test-template/',test_template),
+    # path('home-page/',home_page),
+    path('home-page/',HomePageView.as_view())
 ]
