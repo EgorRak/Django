@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Библиотека</title>
+    <style>
+    td {
+    padding: 40px;
+    text-align: center
+    }
+        .fofo {
+        font-weight: 600;
+        }
+        .zzz {
+        color: #FFF613
+        }
+        .xxx {
+        color: white
+        }
+     li{
+     padding: 8px;
+     }
+    </style>
+</head>
+<body background="http://ilchakov.net.ua/prof/photo/Fon_JJ_34.jpg">
+
+<table border="1" bgcolor="#FEFFFF" align="center"  >
+        <h1 align="center">Библиотека</h1>
+
+    <tr class="fofo" bgcolor="#FF00FF">
+        <td>Книга</td>
+        <td>Авторы</td>
+        <td>Год выпуска</td>
+        <td>Жанры</td>
+        <td>Количество читающих</td>
+        <td>Количество прочитавших</td>
+    </tr>
+
+    <tr>
+        <td bgcolor="#D9D9D9">
+
+            {%for book in books %}
+            <ul>
+               {{book.name}}
+            </ul>
+            {%endfor%}
+        </td>
+
+
+
+        <td bgcolor="#D9D9D9">
+        <ul>
+           {%for author in authors %}
+            <li>{{author.first_name}}  {{author.last_name}}</li>
+            {%endfor%}
+
+        </ul>
+        </td>
+
+
+
+        <td bgcolor="#D9D9D9">
+
+            {%for book in books %}
+            <ul>
+               {{book.year_issued}}
+            </ul>
+            {%endfor%}
+
+
+        </td>
+
+
+
+        <td bgcolor="#38761D">
+
+            {%for book in books %}
+            <ul class="zzz">
+                {%for genre in book.genres.all %}
+                <li>{{genre.name}}</li>
+                {%endfor%}
+            </ul>
+            {%endfor%}
+        </td>
+
+
+
+        <td class="xxx" bgcolor="red">Количество читающих людей</td>
+        <td class="xxx" bgcolor="red">Количество прочитавших людей</td>
+
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+
+
+    </table>
+
+
+
+</body>
+</html>
+

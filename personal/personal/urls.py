@@ -22,6 +22,28 @@ from personal.views import get_numbers
 from personal.views import test_template
 from personal.views import home_page
 from personal.views import HomePageView
+from personal.views import get_authors
+from personal.views import create_country
+from personal.views import show_values
+from personal.views import home
+from personal.views import CountryView, CountryViewSet
+from personal.views import BookView, BookCopyViewSet, BookViewSet
+from personal.views import Author,AuthorViewSet
+from personal.views import Reader,ReaderViewSet
+from personal.views import OrderViewSet
+from personal.views import LibrarianViewSet
+from personal.views import kiki
+from rest_framework.routers import SimpleRouter
+
+
+router = SimpleRouter()
+router.register('countries-new', CountryViewSet)
+router.register('books-copy-new', BookCopyViewSet)
+router.register('authors-new', AuthorViewSet)
+router.register('readers-new', ReaderViewSet)
+router.register('book-new', BookViewSet)
+router.register('order-new', OrderViewSet)
+router.register('librarian-new', LibrarianViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,5 +52,23 @@ urlpatterns = [
     path('numbers/',get_numbers),
     path('test-template/',test_template),
     # path('home-page/',home_page),
-    path('home-page/',HomePageView.as_view())
-]
+    path('home-page/',HomePageView.as_view()),
+
+    path('authors/', get_authors),
+
+    path('country/<str:name>',create_country),
+
+    path('someendpoint/<str:somestring>/<int:someinteger>', show_values),
+
+    path('home/', home.as_view()),
+
+    path('countries/', CountryView.as_view()),
+
+    path('books/', BookView.as_view()),
+
+    path('kiki/', kiki.as_view()),
+
+
+    ] +router.urls
+
+

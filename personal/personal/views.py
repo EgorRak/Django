@@ -1,7 +1,25 @@
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
 from datetime import datetime
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from personal.models import Author
+from personal.models import Country
+from django.views import View
+from personal.models import Book, BookCopy
+from personal.models import Reader
+from personal.models import Order
+from personal.models import Librarian
+import json
+
+from rest_framework.viewsets import ModelViewSet
+from personal.serializers import CountrySerializer
+from personal.serializers import BookCopySerializer
+from personal.serializers import AuthorSerializer
+from personal.serializers import ReaderSerializer
+from personal.serializers import BookSerializer
+from personal.serializers import OrderSerializer
+from personal.serializers import LibrarianSerializer
+
 def hello(request):
     return HttpResponse("OK")
 def info(request):
@@ -100,22 +118,137 @@ class HomePageView(TemplateView):
         #     'ex': ex,
         #     'ex2': ex2 }
 
+def get_authors(request):
+
+    # queryset = Author.objects.all()
+    queryset = Author.objects.exclude(
+        first_name='Mikhail',
+        last_name__startswith='U'
+
+    )
+
+    data = {
+        'authors': queryset
+    }
+    return render(request,
+                  'authors.html',
+                  context=data)
+
+def create_country(request,name: str):
+
+    country = Country(name=name)
+
+    country.save()
+
+    return HttpResponse("OK")
+
+def show_values(request, somestring: str, someintenger: int):
+
+    data = f"String: {somestring}, quadratic: {someintenger**2}"
+
+    return HttpResponse(data)
 
 
-"""class NumberView(TemplateView):
-    template_name = 'numbers.html'
 
+class CountryView(View):
+    def get(self, *args, **kwargs):
+
+        countries = Country.objects.all()
+
+        data = []
+        for c in countries:
+            data.append({
+                'name': c.name,
+                'id': c.id
+            })
+
+        return JsonResponse(data,safe=False)
+
+class BookView(View):
+    def get(self, *args, **kwargs):
+
+        books = Book.objects.all()
+
+        data = []
+        for c in books:
+            data.append({
+                'name': c.name,
+                'id': c.id
+            })
+
+        return JsonResponse(data,safe=False)
+
+
+class CountryViewSet(ModelViewSet):
+    queryset = Country.objects.all()
+    serializer_class = CountrySerializer
+
+class BookCopyViewSet(ModelViewSet):
+    queryset = BookCopy.objects.all()
+    serializer_class = BookCopySerializer
+class AuthorViewSet(ModelViewSet):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+
+class ReaderViewSet(ModelViewSet):
+    queryset = Reader.objects.all()
+    serializer_class = ReaderSerializer
+
+class home(TemplateView):
+    template_name = 'home.html'
     def get_context_data(self, **kwargs):
-        values = []
 
-        for value in range(20):
-            values.append(
-                {
-                    'value': value,
-                    'square': value ** 2
-                }
-            )
-
-        # Return context object for the template
+        readers = Reader.objects.all()
+        books = Book.objects.all()
+        authors = Author.objects.all()
         return {
-            'values_list': values"""
+                'readers': readers,
+                'books': books,
+                'authors': authors,
+            }
+
+class BookViewSet(ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+class OrderViewSet(ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+class LibrarianViewSet(ModelViewSet):
+    queryset = Librarian.objects.all()
+    serializer_class = LibrarianSerializer
+
+
+
+class kiki(TemplateView):
+    template_name = 'kiki.html'
+    def get_context_data(self, **kwargs):
+
+        readers = Reader.objects.all()
+        books = Book.objects.all()
+        authors = Author.objects.all()
+
+        return {
+                'readers': readers,
+                'books': books,
+                'authors': authors,
+            }
+
+
+"""1. Организовать домашнюю страницу библиотеки.
+Требования:
+адрес страницы: http://localhost:8000/home/
+представление: классовое на базе TemplateView
+На странице отобразить html-таблицы:
+Список Читателей
+Список Книг
+Список Авторов
+У каждой из таблиц выше добавить тег <h1> с названием таблицы.
+1.1*. Добавить:
+выводить только первых 5 авторов, у которых наибольшее количество книг.
+выводить первые 10 книг с наименьшим количеством экземпляров, кроме тех, у которых вообще их нет.
+книги, у которых менее 3 экземпляров, отмечать в таблице красным цветом шрифта.
+
+
+"""

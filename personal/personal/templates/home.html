@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>home</title>
+    <style>
+   body {
+    margin: 0, ;
+   }
+   </style>
+</head>
+<body background="http://ilchakov.net.ua/prof/photo/Fon_JJ_34.jpg">
+    <table border="1" bgcolor="#FEFFFF" >
+    <h1 >Читатели</h1>
+            {%for reader in readers %}
+        <tr >
+            <td>{{reader.id}}</td>
+
+            <td>{{reader.first_name}}</td>
+            <td>{{reader.last_name}}</td>
+        </tr>
+        {%endfor%}
+
+    </table>
+
+
+    <table border="1" bgcolor="#FEFFFF"  >
+        <h1 >Книги</h1>
+        {%for book in books %}
+        <tr>
+        <td>{{book.name}}</td>
+        </tr>
+            {%endfor%}
+    </table>
+          
+
+
+    <table border="1" bgcolor="#FEFFFF" >
+     <h1 >Авторы</h1>
+            {%for author in authors %}
+        <tr>
+            <td>{{author.id}}</td>
+            <td>{{author.first_name}}</td>
+            <td>{{author.last_name}}</td>
+
+        </tr>
+            {%endfor%}
+    </table>
+</body>
+</html>
